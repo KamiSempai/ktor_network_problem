@@ -48,7 +48,7 @@ class DnsReaderTest {
         println("Reading ${dnsAddress.hostname}:${dnsAddress.port}")
 
         val selectorManager = SelectorManager(Dispatchers.Default)
-        val serverSocket = aSocket(selectorManager).udp().connect(dnsAddress)
+        val serverSocket = aSocket(selectorManager).udp().bind() // Use bind instead of connect
 
         return try {
             serverSocket.send(Datagram(ByteReadPacket(requestData), dnsAddress))
